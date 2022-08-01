@@ -38,14 +38,24 @@ export default {
         alert('select a user first.')
         return
       }
+      if (title === '') {
+        alert('title can not be empty.')
+        return
+      }
+      if (content === '') {
+        alert('content can not be empty.')
+        return
+      }
       this.$axios({
         method: 'post',
         contentType: 'application/json;charset=utf-8',
         url: 'http://localhost:8080/user/' + userId + '/article',
         data: {'title': title, 'content': content}
       }).then((response) => {
+        alert('new article created.')
+        this.title = ''
+        this.content = ''
         this.$emit('startrefresharticlelist', userId)
-        console.log(response.data)
       }).catch((error) => {
         console.log(error)
       })
